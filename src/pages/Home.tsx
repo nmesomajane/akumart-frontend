@@ -1,26 +1,29 @@
 import { Link } from "react-router-dom";
 
 
+
+
 export const Home = () => {
   return (
     <div>
+      
           <section className="pt-28 pb-16 md:pt-32 md:pb-24 bg-linear-to-br from-gray-50 via-white to-green-50/30 overflow-hidden">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="flex flex-col-reverse md:flex-row items-center gap-10 md:gap-16">
         {/* Text — comes FIRST on mobile (flex-col-reverse) */}
         <div className="flex-1 text-center md:text-left">
-          <div className="inline-flex items-center gap-2 bg-green-50 border border-green-200 text-[#16a34a] px-3 py-1.5 rounded-full text-xs font-semibold mb-5">
+          {/* <div className="inline-flex items-center gap-2 bg-green-50 border border-green-200 text-[#16a34a] px-3 py-1.5 rounded-full text-xs font-semibold mb-5">
             <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-pulse" />
             Nigeria's #1 Waste B2B Marketplace
-          </div>
+          </div> */}
  
           <h1
             className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight"
             style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
           >
             The{" "}
-            <span className="text-[#22c55e]">B2B Marketplace</span>
-            {" "}for Waste and Recycled Materials
+            <span className="text-[#22c55e]">B2B </span>
+            {" "}Marketplace for Waste and Recycled Materials
           </h1>
  
           <p className="mt-5 text-gray-500 text-base md:text-lg leading-relaxed max-w-lg mx-auto md:mx-0">
@@ -105,6 +108,8 @@ export const Home = () => {
         </div>
       </div>
       </section>
+
+      
     </div>
   )
 }

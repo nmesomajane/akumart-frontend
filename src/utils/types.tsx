@@ -1,0 +1,223 @@
+// ============================================================
+//  AKUMART — Global TypeScript Types
+// ============================================================
+
+// ─── USER & AUTH ─────────────────────────────────────────────────────────────
+
+export type UserRole = "seller" | "buyer" | "admin";
+
+export type BusinessType =
+  | "Manufacturing"
+  | "Agriculture"
+  | "Construction"
+  | "Packaging"
+  | "Other";
+
+export type WasteCategory =
+  | "Paper"
+  | "Plastic"
+  | "Metal"
+  | "E-Waste"
+  | "Rubber"
+  | "Fabric"
+  | "Organic"
+  | "Chemical"
+  | "Glass"
+  | "Wood"
+  | "Other";
+
+export interface User {
+  id: string;
+  role: UserRole;
+  fullName: string;
+  email: string;
+  phone: string;
+  state: string;
+  city: string;
+  businessType: BusinessType;
+  wasteCategories: WasteCategory[];
+  memberSince: string;
+  isEmailVerified: boolean;
+  avatarUrl?: string;
+  // Seller-only
+  rating?: number;
+  reviewCount?: number;
+  totalTransactions?: number;
+  // Buyer-only
+  productionDescription?: string;
+}
+
+export interface AuthState {
+  user: User | null;
+  token: string | null;
+  isAuthenticated: boolean;
+}
+
+// ─── LISTINGS ────────────────────────────────────────────────────────────────
+
+export type LogisticsPreference = "self" | "akumart";
+
+export type ListingStatus = "active" | "paused" | "sold_out" | "deleted";
+
+export interface Listing {
+  id: string;
+  sellerId: string;
+  sellerName: string;
+  sellerRating?: number;
+  title: string;
+  description: string;
+  categories: WasteCategory[];
+  weightKg: number;
+  priceMin: number;
+  priceMax: number;
+  location: string;
+  state: string;
+  city: string;
+  availableFrom: string;
+  availableTo: string;
+  photos: string[];
+  logisticsPreference: LogisticsPreference;
+  status: ListingStatus;
+  createdAt: string;
+  updatedAt: string;
+  trustLabel?: "Highly Active" | "Reliable Seller" | "New on Platform";
+  trustSummary?: string;
+}
+
+// ─── ORDERS ──────────────────────────────────────────────────────────────────
+
+export type OrderStatus =
+  | "pending"
+  | "accepted"
+  | "declined"
+  | "in_transit"
+  | "delivered"
+  | "completed"
+  | "cancelled"
+  | "disputed";
+
+export interface Order {
+  id: string;
+  listingId: string;
+  listingTitle: string;
+  sellerId: string;
+  sellerName: string;
+  buyerId: string;
+  buyerName: string;
+  weightKg: number;
+  pricePerKg: number;
+  totalPrice: number;
+  transactionFee: number;
+  logisticsFee?: number;
+  finalTotal: number;
+  deliveryAddress?: string;
+  paymentMethod: PaymentMethod;
+  status: OrderStatus;
+  placedAt: string;
+  updatedAt: string;
+  trackingInfo?: string;
+}
+
+export type PaymentMethod =
+  | "debit_card"
+  | "credit_card"
+  | "bank_transfer"
+  | "crypto";
+
+// ─── REVIEWS ─────────────────────────────────────────────────────────────────
+
+export interface Review {
+  id: string;
+  orderId: string;
+  sellerId: string;
+  buyerId: string;
+  buyerName: string;
+  rating: number;
+  comment?: string;
+  createdAt: string;
+}
+
+// ─── SELLER TRACTION ─────────────────────────────────────────────────────────
+
+export interface SellerTraction {
+  sellerId: string;
+  totalKgSold: number;
+  uniqueBuyers: number;
+  completionRate: number;
+  avgResponseTimeHours: number;
+  averageRating: number;
+  reviewCount: number;
+}
+
+// ─── NOTIFICATIONS ───────────────────────────────────────────────────────────
+
+export type NotificationType =
+  | "new_listing_match"
+  | "ai_recommendation"
+  | "price_update"
+  | "order_placed"
+  | "order_accepted"
+  | "order_declined"
+  | "order_in_transit"
+  | "order_delivered"
+  | "order_completed"
+  | "new_review"
+  | "new_message"
+  | "payment_released";
+
+export interface AppNotification {
+  id: string;
+  type: NotificationType;
+  message: string;
+  isRead: boolean;
+  createdAt: string;
+  linkTo?: string;
+}
+
+// ─── FYP ─────────────────────────────────────────────────────────────────────
+
+export type FYPContentType = "article" | "seller_post" | "news" | "tip";
+
+export interface FYPPost {
+  id: string;
+  type: FYPContentType;
+  title: string;
+  body: string;
+  authorId?: string;
+  authorName: string;
+  relatedCategories: WasteCategory[];
+  listingId?: string;
+  publishedAt: string;
+  imageUrl?: string;
+}
+
+// ─── API RESPONSES ───────────────────────────────────────────────────────────
+
+export interface ApiResponse<T> {
+  success: boolean;
+  data: T;
+  message?: string;
+}
+
+export interface PaginatedResponse<T> {
+  success: boolean;
+  data: T[];
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+}
+
+// ─── ZUSTAND UI STATE ────────────────────────────────────────────────────────
+
+export interface UINotification {
+  id: string;
+  message: string;
+  type: "success" | "error" | "info";
+}
+
+export interface UIState {
+  isLoading: boolean;
+  activeModal: string | null;
+  notifications: UINotification[];
+}

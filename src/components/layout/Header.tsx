@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 
-const Header = () => {
+export const Header = () => {
   const [, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
@@ -30,15 +30,15 @@ const Header = () => {
           : "bg-white/95 backdrop-blur-sm py-4"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 ">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 shrink-0">
+          <Link to="/" className="flex items-center gap-2 shrink-0 ">
             <div className="w-9 h-9 bg-[#1a472a] rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-base leading-none">A</span>
             </div>
             <div className="flex flex-col leading-none">
-              <span className="text-[#1a472a] font-bold text-xl tracking-tight" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+              <span className="text-[#111827)] font-bold text-xl tracking-tight" sm:px-6 lg:px-12 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
                 Aku<span className="text-[#22c55e]">Mart</span>
               </span>
               <span className="text-gray-400 text-[9px] tracking-wide">Waste Today. Resource Tomorrow.</span>
@@ -52,13 +52,13 @@ const Header = () => {
           <div className="hidden md:flex items-center gap-3">
             <Link
               to="/signin"
-              className="text-sm font-semibold text-gray-700 hover:text-[#1a472a] transition-colors px-4 py-2"
+              className="flex w-45 h-14.25 p-2.5 justify-center items-center gap-2.5 rounded-xl border border-[#DBDBDB]"
             >
               Sign In
             </Link>
             <Link
               to="/register"
-              className="text-sm font-semibold text-white bg-[#22c55e] hover:bg-[#16a34a] px-5 py-2.5 rounded-lg transition-colors duration-200 shadow-sm"
+              className="flex w-45 h-14.25 p-2.5 justify-center items-center gap-2.5 rounded-xl border border-[#DBDBDB] text-sm font-semibold text-white bg-[#22c55e] hover:bg-[#16a34a]  transition-colors duration-200 shadow-sm"
             >
               Sign Up
             </Link>
@@ -72,5 +72,3 @@ const Header = () => {
     </header>
   );
 };
-
-export default Header;
