@@ -1,17 +1,16 @@
 name: vulnerability scan and lint test
 
 on:
-  push: # Runs on every push to any branch by anyone in this repo
+  push:
   pull_request:
-    branches: [dev] # Also a required gate for PRs targeting dev
   workflow_dispatch:
 
 permissions:
   contents: read
-  security-events: write   # Required to upload SARIF to GitHub Security tab
   actions: read
 
 jobs:
+  # JOB 1 – TypeScript Type Check
   typecheck:
     name: TypeScript Type Check
     runs-on: ubuntu-latest
@@ -66,35 +65,22 @@ jobs:
 
   # JOB 3 – Trivy filesystem for vulnerability scan
   trivy-fs-scan:
-    name: Trivy Filesystem vulnerability Scan
+    name: Trivy Vulnerability Scan
     runs-on: ubuntu-latest
-    steps: 
+    steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install dependencies (for lockfile analysis)
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
         run: npm ci
 
-      - name: Run Trivy
-        uses: aquasecurity/trivy-action@master
-        with:
-          scan-type: fs
-          scan-ref: "."
-          format: sarif
-          output: trivy-results.sarif
-          severity: CRITICAL,HIGH
-          exit-code: "0"
-          ignore-unfixed: false
-          vuln-type: "os,library"
-
-      - name: Upload SARIF to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v3
-        if: always()
-        with:
-          sarif_file: trivy-results.sarif
-          category: trivy-filesystem
-
-      # ── 2. HTML → viewable artifact 
+      # 1. HTML → viewable artifact 
       - name: Run Trivy (HTML report)
         uses: aquasecurity/trivy-action@master
         with:
@@ -108,7 +94,7 @@ jobs:
           ignore-unfixed: false
           vuln-type: "os,library"
 
-      # ── 3. Plaintext artifact
+      # 2. Plaintext artifact
       - name: Run Trivy (Plain Text)
         uses: aquasecurity/trivy-action@master
         with:
