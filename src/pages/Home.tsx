@@ -1,10 +1,13 @@
-import Hero from "../assets/imgs/home1.png"
 import { Link } from "react-router-dom";
+import Hero from "../assets/imgs/home1.png"
+
+
 
 interface StatCardProps {
   number: string;
   label: string;
 }
+
 
 
 
@@ -94,7 +97,7 @@ export const Home = () => {
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch  ">
         
         {/* --- PROBLEM SIDE (Narrower Width) --- */}
-        <div className="md:col-span-5 bg-[#F9FAFB] border border-gray-100 rounded-[24px] p-8 md:p-12 flex flex-col justify-start">
+        <div className="md:col-span-5 bg-[#F9FAFB] border border-gray-100 rounded-3xl p-8 md:p-12 flex flex-col justify-start">
           <h2 className="text-[#111827] text-2xl md:text-[32px] font-extrabold mb-8 text-center ">
             Problem
           </h2>
@@ -164,6 +167,9 @@ export const Home = () => {
 
       </div>
     </section>
+
+    {/* how it works */}
+   
     </div>
   );
 };
