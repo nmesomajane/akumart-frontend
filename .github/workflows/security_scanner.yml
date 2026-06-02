@@ -1,0 +1,133 @@
+name: vulnerability scan and lint test
+
+on:
+  push: # Runs on every push to any branch by anyone in this repo
+  pull_request:
+    branches: [dev] # Also a required gate for PRs targeting dev
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  security-events: write   # Required to upload SARIF to GitHub Security tab
+  actions: read
+
+jobs:
+  typecheck:
+    name: TypeScript Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run TypeScript type check
+        run: npx tsc -b --noEmit
+
+  # JOB 2 – ESLint formatting & linting
+  lint:
+    name: ESLint & Code Formatting
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint (save output as artifact)
+        run: npm run lint 2>&1 | tee eslint-report.txt
+        continue-on-error: true
+
+      - name: Upload ESLint report artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: eslint-report
+          path: eslint-report.txt
+          retention-days: 14
+
+      # Run again without tee so the job exit code is respected
+      - name: Assert lint passes
+        run: npm run lint
+
+  # JOB 3 – Trivy filesystem for vulnerability scan
+  trivy-fs-scan:
+    name: Trivy Filesystem vulnerability Scan
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies (for lockfile analysis)
+        run: npm ci
+
+      - name: Run Trivy
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: fs
+          scan-ref: "."
+          format: sarif
+          output: trivy-results.sarif
+          severity: CRITICAL,HIGH
+          exit-code: "0"
+          ignore-unfixed: false
+          vuln-type: "os,library"
+
+      - name: Upload SARIF to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: trivy-results.sarif
+          category: trivy-filesystem
+
+      # ── 2. HTML → viewable artifact 
+      - name: Run Trivy (HTML report)
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: fs
+          scan-ref: "."
+          format: template
+          template: "@/contrib/html.tpl"
+          output: trivy-report.html
+          severity: CRITICAL,HIGH
+          exit-code: "0"
+          ignore-unfixed: false
+          vuln-type: "os,library"
+
+      # ── 3. Plaintext artifact
+      - name: Run Trivy (Plain Text)
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: fs
+          scan-ref: "."
+          format: table
+          output: trivy-results.txt
+          severity: CRITICAL,HIGH
+          exit-code: "1"            # ← Fails the job if CRITICAL or HIGH found
+          ignore-unfixed: false
+          vuln-type: "os,library"
+
+      # Upload reports regardless of whether the scan passed or failed
+      - name: Upload Trivy reports
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: trivy-security-report
+          path: |
+            trivy-report.html
+            trivy-results.txt
+          retention-days: 30
