@@ -1,117 +1,169 @@
+import Hero from "../assets/imgs/home1.png"
 import { Link } from "react-router-dom";
 
+interface StatCardProps {
+  number: string;
+  label: string;
+}
 
 
 
 export const Home = () => {
+  // Statistics Data
+  const stats: StatCardProps[] = [
+    { number: "300 +", label: "Trusted SME's" },
+    { number: "650", label: "Materials Listed" },
+    { number: "100", label: "Trusted SME's" }, // As seen in Figma image 1
+    { number: "10", label: "Ai Powered Matching" },
+  ];
+
+  
+
+
   return (
-    <div>
-      
-          <section className="pt-28 pb-16 md:pt-32 md:pb-24 bg-linear-to-br from-gray-50 via-white to-green-50/30 overflow-hidden">
-       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="flex flex-col-reverse md:flex-row items-center gap-10 md:gap-16">
-        {/* Text — comes FIRST on mobile (flex-col-reverse) */}
-        <div className="flex-1 text-center md:text-left">
-          {/* <div className="inline-flex items-center gap-2 bg-green-50 border border-green-200 text-[#16a34a] px-3 py-1.5 rounded-full text-xs font-semibold mb-5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-pulse" />
-            Nigeria's #1 Waste B2B Marketplace
-          </div> */}
- 
-          <h1
-            className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight"
-            style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-          >
-            The{" "}
-            <span className="text-[#22c55e]">B2B </span>
-            {" "}Marketplace for Waste and Recycled Materials
+    <div className="w-full bg-[#FAFAFA] font-['Plus_Jakarta_Sans',sans-serif] antialiased">
+      {/* SECTION 1: HERO */}
+     
+      <section className=" mx-auto px-6 pt-25 pb-8 md:px-16 md:pt-35 md:pb-20 flex flex-col md:flex-row items-center justify-between gap-10">
+       
+        <div className="w-full md:w-1/2 flex flex-col items-start text-left">
+          <h1 className="text-[#0D2B1E] text-[24px] md:text-[34px] lg:text-[64px] font-extrabold leading-7.5 md:leading-10 lg:leading-18 tracking-[0.92px] mb-6">
+            The <span className="text-[#A3E635]">B2B</span> Marketplace for
+            Waste and Recycled Materials
           </h1>
- 
-          <p className="mt-5 text-gray-500 text-base md:text-lg leading-relaxed max-w-lg mx-auto md:mx-0">
-            Connect with trusted buyers and sellers to trade recyclable and reusable waste materials across Nigeria.
+          <p className="text-[#4B5563] text-[14px] md:text-lg mb-8 max-w-lg">
+            Connect with trusted buyers and sellers to trade recyclable and
+            reusable waste materials across Nigeria.
           </p>
- 
-          <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
-            <Link
-              to="/seller/register"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[#22c55e] hover:bg-[#16a34a] text-white font-semibold rounded-xl transition-all duration-200 shadow-lg shadow-green-200 text-sm"
-            >
+          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+            <button className="bg-[#16A34A] hover:bg-[#059669] text-white font-semibold py-4 px-6 rounded-xl transition duration-200 text-center">
+               <Link
+              to="/signup"
+              
+             >
               Browse Marketplace
-             
-              </Link>
-            <Link
-              to="/seller/register"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-white border-2 border-gray-200 hover:border-[#22c55e] text-gray-700 font-semibold rounded-xl transition-all duration-200 text-sm"
-            >
+             </Link>
+            </button>
+            <button className="bg-[#E5E7EB] hover:bg-[#D1D5DB] text-[#374151] font-semibold py-4 px-6 rounded-xl transition duration-200 text-center">
+               <Link
+              to="/register"
+              
+             >
               Get Started
-            </Link>
-          </div>
- 
-         
-        </div>
- 
-        {/* Image — comes SECOND on mobile */}
-        <div className="flex-1 flex justify-center md:justify-end">
-          <div className="relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96">
-            {/* Decorative ring */}
-            <div className="absolute inset-0 rounded-full bg-linear-to-br from-green-100 to-green-50 border-2 border-green-200/60" />
-            <div className="absolute inset-4 rounded-full bg-linear-to-br from-green-50 to-white border border-green-100 flex items-center justify-center">
-              <div className="text-center px-6">
-                <div className="text-8xl md:text-9xl leading-none">♻️</div>
-                <p className="text-[#1a472a] font-semibold text-sm mt-3" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-                  Circular Economy
-                </p>
-                <p className="text-gray-400 text-xs mt-1">Waste → Resource</p>
-              </div>
-            </div>
-            {/* Floating badges */}
-          
+             </Link>
+            </button>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-      <section>
-        <div className="bg-[#1a472a] py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="text-center md:text-left">
-            <h2 className="text-white text-3xl md:text-4xl font-bold leading-tight" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-              Ready to Turn{" "}
-              <span className="text-[#22c55e]">Waste</span>
-              <br />
-              Into Opportunity?
-            </h2>
-            <p className="text-green-200 mt-3 text-base">
-              Create your free account and start trading smarter today.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 mt-6 justify-center md:justify-start">
-              <Link
-                to="/seller/register"
-                className="px-6 py-3 bg-[#22c55e] hover:bg-[#16a34a] text-white font-semibold rounded-lg transition-colors duration-200 text-center text-sm"
-              >
-                Sign Up as Seller
-              </Link>
-              <Link
-                to="/buyer/register"
-                className="px-6 py-3 bg-transparent border-2 border-white/40 hover:border-white text-white font-semibold rounded-lg transition-colors duration-200 text-center text-sm"
-              >
-                Sign Up as Buyer
-              </Link>
-            </div>
-          </div>
-          {/* Tree Globe Illustration Placeholder */}
-          <div className="hidden md:flex items-center justify-center w-52 h-52 rounded-full bg-white/5 border border-white/10 flex-shrink-0">
-            <div className="text-center">
-              <div className="text-6xl">🌍</div>
-              <p className="text-green-300 text-xs mt-2">Circular Economy</p>
-            </div>
-          </div>
+
+        {/* Right: Recycle Logo/Image Space */}
+        <div className="w-full md:w-1/2 flex justify-center items-center min-h-75 md:min-h-112.5   relative overflow-hidden ">
+        <img
+        src={Hero}
+        alt="#"
+        />
         </div>
-      </div>
       </section>
 
-      
+
+
+      {/* SECTION 2: STATISTICS */}
+      <section className=" mx-auto px-6 py-6 md:px-16 ">
+        {/* Mobile: Horizontal scrollable track | Desktop: Static Grid Layout */}
+        <div className="flex overflow-x-auto  md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 pb-4 md:pb-0 scrollbar-hide snap-x snap-mandatory  scrollbar-none [&::-webkit-scrollbar]:hidden">
+          {stats.map((stat, index) => (
+            <div
+              key={index}
+              className="min-w-60 md:min-w-0 shrink-0 bg-white border border-gray-100 shadow-sm rounded-2xl p-8 flex flex-col items-center justify-center text-center snap-center"
+            >
+              <h3 className="text-[#000000] text-[32px] font-extrabold leading-12.5">
+                {stat.number}
+              </h3>
+              <p className="text-[#4B5563] text-sm md:text-base mt-1 font-medium">
+                {stat.label}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* --- */}
+
+      {/* SECTION 3: PROBLEM AND SOLUTION */}
+      <section className=" mx-auto px-6 py-12 md:px-16 md:py-20">
+     
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch  ">
+        
+        {/* --- PROBLEM SIDE (Narrower Width) --- */}
+        <div className="md:col-span-5 bg-[#F9FAFB] border border-gray-100 rounded-[24px] p-8 md:p-12 flex flex-col justify-start">
+          <h2 className="text-[#111827] text-2xl md:text-[32px] font-extrabold mb-8 text-center ">
+            Problem
+          </h2>
+          <div className="flex flex-col">
+           <ul className="space-y-3">
+            {[
+              "Businesses pay to dispose of reusable waste",
+              "Buyers struggle to find reliable suppliers",
+              "Lack of trust and transparency in transactions",
+              "Logistics and coordination are difficult and expensive",
+            ].map((item) => (
+              <li key={item} className="flex items-start gap-3 text-gray-600 text-sm md:text-md lg:text-lg ">
+                <span className="w-5 h-5 rounded-full bg-green-100 shrink-0 flex items-center justify-center mt-0.5">
+                  <span className="w-2 h-2 rounded-full bg-green-400" />
+                </span>
+                {item}
+              </li>
+            ))}
+          </ul>
+          </div>
+        </div>
+
+        {/* --- SOLUTION SIDE (Wider Width) --- */}
+        <div className="md:col-span-7 bg-[#0D2B1E] rounded-3xl p-10 md:p-12 flex flex-col justify-between text-white relative overflow-hidden">
+          <h2 className="text-white text-2xl md:text-[32px] font-extrabold mb-5 text-center ">
+                Solution
+              </h2>
+          {/* Asymmetric Flex Container: Split text and image side-by-side on desktop */}
+          <div className="flex flex-col-reverse lg:flex-row lg:items-center justify-between gap-8 h-full">
+            
+            {/* Left Column: Solution Bullet Points */}
+            <div className="flex flex-col max-w-md w-full  ">
+              
+              <div className="flex flex-col">
+                <ul className="space-y-3">
+            {[
+               "A trusted marketplace for waste materials",
+              "AI-powered matching for the right connections",
+              "Secure payment and verified businesses",
+              "Integrated logistics and real-time tracking",
+            ].map((item) => (
+              <li key={item} className="flex items-start gap-3 text-white text-sm md:text-md lg:text-lg">
+                <span className="w-5 h-5 rounded-full bg-green-100 shrink-0 flex items-center justify-center mt-0.5">
+                  <span className="w-2 h-2 rounded-full bg-green-400" />
+                </span>
+                {item}
+              </li>
+            ))}
+          </ul>
+                
+              </div>
+            </div>
+
+            {/* Right Column: Circular Logistics Image Container */}
+            <div className="flex justify-center items-center shrink-0 mx-auto lg:mx-0">
+              <div className="w-65 h-65 md:w-75 md:h-75 rounded-full bg-[#113827] border-4 border-[#164d35] overflow-hidden relative shadow-xl flex items-center justify-center">
+               
+                <span className="text-emerald-400 text-xs px-6 text-center font-medium">
+                  [ Circular Logistics Image Placeholder ]
+                </span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
     </div>
-  )
-}
-
-
+  );
+};

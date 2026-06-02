@@ -39,7 +39,7 @@ export const Footer = () => {
                   className="text-[#1a472a] font-bold text-xl tracking-tight"
                   style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
                 >
-                  Aku<span className="text-[#22c55e]">Mart</span>
+                  Aku<span className="text-[#A3E635]">Mart</span>
                 </span>
                 <span className="text-gray-400 text-[9px] tracking-wide">
                   Waste Today. Resource Tomorrow.
